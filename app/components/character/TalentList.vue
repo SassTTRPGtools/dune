@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 const props = defineProps<{ list: any[] }>()
+console.log('TalentList list:', props.list)
 const emit = defineEmits(['remove'])
 
 const hoverIdx = ref<number|null>(null)

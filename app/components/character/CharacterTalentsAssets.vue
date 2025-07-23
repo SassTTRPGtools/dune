@@ -1,3 +1,4 @@
+
 <template>
   <div class="flex flex-col gap-2 flex-1">
     <div class="flex flex-col gap-4 flex-1 min-h-0">
@@ -8,7 +9,7 @@
           <button @click="showModal = true" class="text-yellow-900 hover:text-yellow-600 font-bold text-sm border border-yellow-400 rounded px-2 py-1">編輯</button>
         </div>
         <TalentList :list="talentList" @remove="removeTalent" />
-        <TalentEditModal :show="showModal" :talents="allTalents" :onAdd="addTalent" @close="showModal = false" />
+        <TalentEditModal :show="showModal" :talents="allTalents" @add="addTalent" @close="showModal = false" />
       </div>
       <!-- 資產區塊 -->
       <div class="border-4 border-yellow-900 rounded-xl bg-white/80 shadow p-4 flex flex-col flex-1 mb-2 min-h-0">
@@ -29,18 +30,18 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import TalentEditModal from './TalentEditModal.vue'
 import TalentList from './TalentList.vue'
-const props = defineProps<{ form: any }>()
-
-const showModal = ref(false)
-const talentList = ref<any[]>([])
-const allTalents = ref<any[]>([])
+const props = defineProps<{ form: any, talentList: any[] }>()
+const emit = defineEmits(['update:talentList'])
 
 function addTalent(talent: any) {
-  talentList.value.push(talent)
+  emit('update:talentList', [...(props.talentList || []), talent])
 }
+
+const showModal = ref(false)
+const allTalents = ref<any[]>([])
 
 onMounted(async () => {
   // 載入所有天賦
@@ -59,4 +60,10 @@ onMounted(async () => {
   }
   allTalents.value = talents
 })
+
+function removeTalent(idx: number) {
+  const newList = [...(props.talentList || [])]
+  newList.splice(idx, 1)
+  emit('update:talentList', newList)
+}
 </script>

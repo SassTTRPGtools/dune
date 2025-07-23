@@ -5,7 +5,7 @@
       <CharacterBasic :form="form" />
       <div class="flex gap-4 mb-2 px-4">
         <CharacterDrivesSkills :form="form" :driveList="driveList" :skillList="skillList" />
-        <CharacterTalentsAssets :form="form" />
+        <CharacterTalentsAssets :form="form" v-model:talentList="form.talents" />
       </div>
       <!-- 匯入/匯出按鈕 -->
       <div class="flex justify-end gap-4 px-4 pb-2 items-center">
@@ -37,7 +37,7 @@ const form = reactive({
   statements: Object.fromEntries(driveList.map(d => [d, ''])),
   skills: Object.fromEntries(skillList.map(s => [s, 0])),
   focuses: Object.fromEntries(skillList.map(s => [s, ''])),
-  talents: '',
+  talents: [],
   assets: '',
   xp: 0,
   determination: 0

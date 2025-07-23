@@ -30,8 +30,8 @@
 </template>
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-const props = defineProps<{ show: boolean, talents: any[], onAdd: Function }>()
-const emit = defineEmits(['close'])
+const props = defineProps<{ show: boolean, talents: any[] }>()
+const emit = defineEmits(['close', 'add'])
 
 const selectedTalentIndex = ref<number|string>('')
 const customTitle = ref('')
@@ -56,7 +56,7 @@ const talentGroups = computed(() => {
 
 function addTalent() {
   if (!selectedTalent.value) return
-  props.onAdd({
+  emit('add', {
     ...selectedTalent.value,
     title: customTitle.value.trim() ? customTitle.value : selectedTalent.value.name
   })
