@@ -43,6 +43,9 @@ function addTalent(talent: any) {
 const showModal = ref(false)
 const allTalents = ref<any[]>([])
 
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
+
 onMounted(async () => {
 const files = [
   `/talent/core.json`,
@@ -53,11 +56,11 @@ const files = [
   let talents: any[] = []
   for (const file of files) {
     try {
-      const res = await fetch(file)
-      const json = await res.json()
-      if (json.talents) talents = talents.concat(json.talents)
+      // $fetch 會自動解析 JSON，且 baseURL 需正確拼接
+      const json = await $fetch<{ talents?: any[] }>(file, { baseURL: base })
+      if (json && json.talents) talents = talents.concat(json.talents)
     } catch (e) {
-      console.error('fetch error:', file, e)
+      console.error('fetch error:', base + file, e)
     }
   }
   allTalents.value = talents

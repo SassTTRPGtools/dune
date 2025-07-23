@@ -44,6 +44,8 @@ const talents = ref<Talent[]>([])
 const selectedBook = ref<'all' | 'core' | 'landsraad' | 'sand&dust'>('all')
 const selectedType = ref('all')
 
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
 
 const bookMap = {
   core: {
@@ -66,10 +68,10 @@ const fetchTalents = async () => {
   let all: (Talent & { _file: string })[] = []
   for (const [key, book] of files) {
     try {
-      const res = await fetch(book.file)
-      const json = await res.json()
-      // 標記來源
-      all = all.concat(json.talents.map((t: Talent) => ({ ...t, _file: book.file })))
+      const json = await $fetch<{ talents: Talent[] }>(book.file, { baseURL: base })
+      if (json && json.talents) {
+        all = all.concat(json.talents.map((t: Talent) => ({ ...t, _file: book.file })))
+      }
     } catch (e) {
       // ignore
     }

@@ -23,18 +23,20 @@ const show = ref(false)
 const copied = ref(false)
 const detail = ref<any>(null)
 
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
+
 async function fetchAllTalents() {
-const files = [
-  `/talent/core.json`,
-  `/talent/landsraad.json`,
-  `/talent/sand&dust.json`
-];
+  const files = [
+    `/talent/core.json`,
+    `/talent/landsraad.json`,
+    `/talent/sand&dust.json`
+  ];
   let all: any[] = []
   for (const file of files) {
     try {
-      const res = await fetch(file)
-      const json = await res.json()
-      all = all.concat(json.talents)
+      const json = await $fetch<{ talents?: any[] }>(file, { baseURL: base })
+      if (json && json.talents) all = all.concat(json.talents)
     } catch {}
   }
   return all

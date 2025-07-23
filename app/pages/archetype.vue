@@ -121,17 +121,29 @@ function findArchetype(name: string) {
   return null
 }
 
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
+
 onMounted(async () => {
-    // 讀取 factions.json
-  const factionsRes = await fetch( '/archetype/factions.json')
-  factions.value = await factionsRes.json()
+  // 讀取 factions.json
+  factions.value = await $fetch<any[]>(
+    '/archetype/factions.json',
+    { baseURL: base }
+  )
   // 讀取 core.json
-  const coreRes = await fetch('/archetype/core.json')
-  const coreJson = await coreRes.json()
+  const coreJson = await $fetch<{ archetypes?: any[] }>(
+    '/archetype/core.json',
+    { baseURL: base }
+  )
   // 讀取 sand&dust.json
-  const sandRes = await fetch('/archetype/sand&dust.json')
-  const sandJson = await sandRes.json()
+  const sandJson = await $fetch<{ archetypes?: any[] }>(
+    '/archetype/sand&dust.json',
+    { baseURL: base }
+  )
   // 合併 archetypes
-  allArchetypes.value = [...(coreJson.archetypes || []), ...(sandJson.archetypes || [])]
+  allArchetypes.value = [
+    ...(coreJson.archetypes || []),
+    ...(sandJson.archetypes || [])
+  ]
 })
 </script>
