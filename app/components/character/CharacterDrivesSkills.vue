@@ -10,7 +10,7 @@
             <span class="w-14 text-yellow-900 font-bold">{{ drive }}</span>
             <div class="flex justify-center items-center w-20 mr-2">
               <input type="number" min="0" max="8" v-model.number="form.drives[drive]"
-                class="w-12 h-10 rounded-full border-2 border-yellow-400 bg-yellow-100 text-yellow-900 font-bold text-lg text-center shadow-inner focus:ring-2 focus:ring-yellow-400 focus:outline-none font-orbitron" />
+                class="w-12 h-10 rounded-full border-2 border-yellow-400 bg-yellow-100 text-yellow-900 font-bold text-lg text-center shadow-inner focus:ring-2 focus:ring-yellow-400 focus:outline-none font-orbitron appearance-none"/>
             </div>
             <input v-model="form.statements[drive]" placeholder="聲明..."
               class="flex-1 min-w-80 border-b-2 border-yellow-400 bg-transparent focus:outline-none py-1 text-yellow-900 ml-2" />
@@ -25,10 +25,10 @@
             <span class="w-14 text-yellow-900 font-bold">{{ skill }}</span>
             <div class="flex justify-center items-center w-20 mr-2">
               <input type="number" min="0" max="8" v-model.number="form.skills[skill]"
-                class="w-12 h-10 rounded-full border-2 border-yellow-400 bg-yellow-100 text-yellow-900 font-bold text-lg text-center shadow-inner focus:ring-2 focus:ring-yellow-400 focus:outline-none font-orbitron" />
+                class="w-12 h-10 rounded-full border-2 border-yellow-400 bg-yellow-100 text-yellow-900 font-bold text-lg text-center shadow-inner focus:ring-2 focus:ring-yellow-400 focus:outline-none font-orbitron appearance-none"/>
             </div>
             <input v-model="form.focuses[skill]" placeholder="焦點..."
-              class="flex-1 min-w-0 border-b-2 border-yellow-400 bg-transparent focus:outline-none py-1 text-yellow-900 ml-2" />
+              class="flex-1 min-w-80 border-b-2 border-yellow-400 bg-transparent focus:outline-none py-1 text-yellow-900 ml-2" />
           </div>
         </div>
       </div>

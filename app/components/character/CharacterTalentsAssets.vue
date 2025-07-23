@@ -1,10 +1,16 @@
 <template>
   <div class="flex flex-col gap-2 flex-1">
     <div class="flex flex-col gap-4 flex-1 min-h-0">
-      <div class="border-4 border-yellow-900 rounded-xl bg-white/80 shadow p-4 flex flex-col flex-1 mb-2 min-h-0">
-        <div class="font-bold text-yellow-900 mb-1 tracking-widest text-lg">天賦</div>
-        <textarea v-model="form.talents" rows="7" class="w-full flex-1 min-h-[90px] border-2 border-yellow-400 rounded-lg bg-transparent focus:outline-none p-2 resize-none text-yellow-900" />
+      <!-- 天賦區塊 -->
+      <div class="border-4 border-yellow-900 rounded-xl bg-white/80 shadow p-4 flex flex-col flex-1 mb-2 min-h-0 relative">
+        <div class="flex items-center justify-between mb-1">
+          <div class="font-bold text-yellow-900 tracking-widest text-lg">天賦</div>
+          <button @click="showModal = true" class="text-yellow-900 hover:text-yellow-600 font-bold text-sm border border-yellow-400 rounded px-2 py-1">編輯</button>
+        </div>
+        <TalentList :list="talentList" @remove="removeTalent" />
+        <TalentEditModal :show="showModal" :talents="allTalents" :onAdd="addTalent" @close="showModal = false" />
       </div>
+      <!-- 資產區塊 -->
       <div class="border-4 border-yellow-900 rounded-xl bg-white/80 shadow p-4 flex flex-col flex-1 mb-2 min-h-0">
         <div class="font-bold text-yellow-900 mb-1 tracking-widest text-lg">資產</div>
         <textarea v-model="form.assets" rows="7" class="w-full flex-1 min-h-[90px] border-2 border-yellow-400 rounded-lg bg-transparent focus:outline-none p-2 resize-none text-yellow-900" />
@@ -23,5 +29,34 @@
   </div>
 </template>
 <script setup lang="ts">
-defineProps<{ form: any }>()
+import { ref, computed, onMounted } from 'vue'
+import TalentEditModal from './TalentEditModal.vue'
+import TalentList from './TalentList.vue'
+const props = defineProps<{ form: any }>()
+
+const showModal = ref(false)
+const talentList = ref<any[]>([])
+const allTalents = ref<any[]>([])
+
+function addTalent(talent: any) {
+  talentList.value.push(talent)
+}
+
+onMounted(async () => {
+  // 載入所有天賦
+  const files = [
+    '/talent/core.json',
+    '/talent/landsraad.json',
+    '/talent/sand&dust.json'
+  ]
+  let talents: any[] = []
+  for (const file of files) {
+    try {
+      const res = await fetch(file)
+      const json = await res.json()
+      if (json.talents) talents = talents.concat(json.talents)
+    } catch {}
+  }
+  allTalents.value = talents
+})
 </script>
