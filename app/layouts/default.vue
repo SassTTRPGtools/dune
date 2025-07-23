@@ -5,6 +5,7 @@
       <nav class="space-x-4">
         <NuxtLink to="/" class="text-yellow-100 hover:text-orange-900 font-semibold transition">首頁</NuxtLink>
         <NuxtLink to="/talent" class="text-yellow-100 hover:text-orange-900 font-semibold transition">天賦查詢</NuxtLink>
+        <NuxtLink to="/archetype" class="text-yellow-100 hover:text-orange-900 font-semibold transition">原型查詢</NuxtLink>
       </nav>
     </header>
     <main class="flex-1 flex flex-col">
