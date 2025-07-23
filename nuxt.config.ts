@@ -14,7 +14,9 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'github-pages',
     prerender: {
-      routes: ['/']
+      routes: ['/', '/character', '/archetype', '/talent'],
+      crawlLinks: true,
+      failOnError: false
     }
   },
   
