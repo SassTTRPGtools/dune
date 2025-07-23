@@ -23,16 +23,16 @@
           <div v-if="faction.mandatoryTalents" class="text-sm text-yellow-700 mb-1">
             必選天賦：
             <template v-if="Array.isArray(faction.mandatoryTalents)">
-              <template v-for="(tal, i) in faction.mandatoryTalents" :key="tal">
-                <TalentTooltip :talent="tal">
-                  <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ tal }}</span>
-                </TalentTooltip>
-                <span v-if="i !== faction.mandatoryTalents.length - 1">、</span>
-              </template>
+                <template v-for="(tal, i) in faction.mandatoryTalents" :key="tal">
+                  <TalentTooltip :talent="getTalentName(tal)">
+                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ tal }}</span>
+                  </TalentTooltip>
+                  <span v-if="i !== faction.mandatoryTalents.length - 1">、</span>
+                </template>
             </template>
             <template v-else>
-              <TalentTooltip :talent="faction.mandatoryTalents">
-                <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ faction.mandatoryTalents }}</span>
+              <TalentTooltip :talent="getTalentName(faction.mandatoryTalents)">
+                <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ getTalentName(faction.mandatoryTalents) }}</span>
               </TalentTooltip>
             </template>
           </div>
@@ -55,17 +55,18 @@
               <div v-if="role.talent" class="text-yellow-900 font-semibold mb-1">
                 天賦：
                 <template v-if="Array.isArray(role.talent)">
-                  <template v-for="(tal, i) in role.talent" :key="tal">
-                    <TalentTooltip :talent="tal">
-                      <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ tal }}</span>
-                    </TalentTooltip>
-                    <span v-if="i !== role.talent.length - 1">、</span>
-                  </template>
+                <template v-for="(tal, i) in role.talent" :key="tal">
+                  <TalentTooltip :talent="getTalentName(tal)">
+                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ getTalentName(tal) }}</span>
+                  </TalentTooltip>
+                  <span v-if="i !== role.talent.length - 1">、</span>
+                </template>
                 </template>
                 <template v-else>
-                  <TalentTooltip :talent="role.talent">
-                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ role.talent }}</span>
+                  <TalentTooltip :talent="getTalentName(role.talent)">
+                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ getTalentName(role.talent) }}</span>
                   </TalentTooltip>
+
                 </template>
               </div>
               <div class="text-yellow-600 text-xs">驅動力：{{ role.drive }}</div>
@@ -94,6 +95,13 @@ import { ref, onMounted } from 'vue'
 import FactionTooltip from '@/components/FactionTooltip.vue'
 import TalentTooltip from '@/components/TalentTooltip.vue'
 
+// 取得括號前的天賦名稱
+function getTalentName(tal: string) {
+  if (!tal) return ''
+  const idx = tal.indexOf('（')
+  if (idx === -1) return tal
+  return tal.slice(0, idx)
+}
 
 const factions = ref<any[]>([])
 const allArchetypes = ref<any[]>([])

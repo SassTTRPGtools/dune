@@ -8,10 +8,11 @@
         <CharacterTalentsAssets :form="form" v-model:talentList="form.talents" />
       </div>
       <!-- 匯入/匯出按鈕 -->
-      <div class="flex justify-end gap-4 px-4 pb-2 items-center">
+      <div class="flex justify-center gap-4 px-4 pb-2 items-center">
         <input ref="importInput" type="file" accept="application/json" class="hidden" @change="importJson" />
         <button @click="triggerImport" class="px-4 py-2 rounded bg-yellow-200 hover:bg-yellow-300 text-yellow-900 font-bold shadow">匯入JSON</button>
         <button @click="exportJson" class="px-4 py-2 rounded bg-yellow-500 hover:bg-yellow-600 text-white font-bold shadow">匯出JSON</button>
+        <button @click="clearAll" class="px-4 py-2 rounded bg-red-400 hover:bg-red-600 text-white font-bold shadow">清空全部</button>
       </div>
     </div>
   </div>
@@ -26,7 +27,7 @@ import CharacterTalentsAssets from '~/components/character/CharacterTalentsAsset
 const driveList = ['責責', '信仰', '正義', '權力', '真理']
 const skillList = ['戰鬥', '溝通', '紀律', '移動', '理解']
 
-const form = reactive({
+const defaultForm = () => ({
   name: '',
   trait: '',
   house: '',
@@ -42,6 +43,29 @@ const form = reactive({
   xp: 0,
   determination: 0
 })
+const form = reactive(defaultForm())
+// localStorage key
+const STORAGE_KEY = 'dune_character_form'
+
+
+// 載入 localStorage（僅瀏覽器端）
+let saved = null
+if (typeof window !== 'undefined') {
+  saved = localStorage.getItem(STORAGE_KEY)
+}
+if (saved) {
+  try {
+    Object.assign(form, JSON.parse(saved))
+  } catch {}
+}
+
+// 監聽 form 變動自動存檔（僅瀏覽器端）
+import { watch } from 'vue'
+if (typeof window !== 'undefined') {
+  watch(form, (val) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(val))
+  }, { deep: true })
+}
 
 const importInput = ref<HTMLInputElement | null>(null)
 
@@ -56,8 +80,11 @@ function importJson(e: Event) {
   reader.onload = (ev) => {
     try {
       const data = JSON.parse(ev.target?.result as string)
-      // 這裡根據你的新格式做對應
-      Object.assign(form, data)
+      Object.assign(form, defaultForm()) // 先清空
+      Object.assign(form, data)          // 再匯入
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
+      }
     } catch {
       alert('JSON格式錯誤')
     }
@@ -66,7 +93,6 @@ function importJson(e: Event) {
 }
 
 function exportJson() {
-  // 這裡根據你的新格式做對應
   const data = JSON.stringify(form, null, 2)
   const blob = new Blob([data], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
@@ -75,6 +101,13 @@ function exportJson() {
   a.download = `${form.name || 'dune_character'}.json`
   a.click()
   URL.revokeObjectURL(url)
+}
+
+function clearAll() {
+  Object.assign(form, defaultForm())
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(STORAGE_KEY)
+  }
 }
 </script>
 
