@@ -44,6 +44,7 @@ const talents = ref<Talent[]>([])
 const selectedBook = ref<'all' | 'core' | 'landsraad' | 'sand&dust'>('all')
 const selectedType = ref('all')
 
+
 const bookMap = {
   core: {
     file: '/talent/core.json',

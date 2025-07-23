@@ -6,8 +6,8 @@ export default defineNuxtConfig({
   tailwindcss: { viewer: true, exposeConfig: true },
 
   app: {
-    baseURL: "/dune/",
-    buildAssetsDir: '/_nuxt/',
+  baseURL: '/dune/',
+  buildAssetsDir: '/_nuxt/',
   },
   
   // 靜態生成設定

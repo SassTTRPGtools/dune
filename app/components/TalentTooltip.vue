@@ -24,11 +24,11 @@ const copied = ref(false)
 const detail = ref<any>(null)
 
 async function fetchAllTalents() {
-  const files = [
-    '/talent/core.json',
-    '/talent/landsraad.json',
-    '/talent/sand&dust.json',
-  ]
+const files = [
+  `/talent/core.json`,
+  `/talent/landsraad.json`,
+  `/talent/sand&dust.json`
+];
   let all: any[] = []
   for (const file of files) {
     try {

@@ -44,19 +44,21 @@ const showModal = ref(false)
 const allTalents = ref<any[]>([])
 
 onMounted(async () => {
-  // 載入所有天賦
-  const files = [
-    '/talent/core.json',
-    '/talent/landsraad.json',
-    '/talent/sand&dust.json'
-  ]
+const files = [
+  `/talent/core.json`,
+  `/talent/landsraad.json`,
+  `/talent/sand&dust.json`
+];
+  console.log('fetch files:', files)
   let talents: any[] = []
   for (const file of files) {
     try {
       const res = await fetch(file)
       const json = await res.json()
       if (json.talents) talents = talents.concat(json.talents)
-    } catch {}
+    } catch (e) {
+      console.error('fetch error:', file, e)
+    }
   }
   allTalents.value = talents
 })

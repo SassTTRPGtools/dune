@@ -122,8 +122,8 @@ function findArchetype(name: string) {
 }
 
 onMounted(async () => {
-  // 讀取 factions.json
-  const factionsRes = await fetch('/archetype/factions.json')
+    // 讀取 factions.json
+  const factionsRes = await fetch( '/archetype/factions.json')
   factions.value = await factionsRes.json()
   // 讀取 core.json
   const coreRes = await fetch('/archetype/core.json')
