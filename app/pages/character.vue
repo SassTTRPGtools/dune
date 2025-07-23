@@ -7,9 +7,10 @@
         <CharacterDrivesSkills :form="form" :driveList="driveList" :skillList="skillList" />
         <CharacterTalentsAssets :form="form" />
       </div>
-      <!-- 匯出/重置按鈕 -->
-      <div class="flex justify-end gap-4 px-4 pb-2">
-        <button @click="resetForm" class="px-4 py-2 rounded bg-yellow-200 hover:bg-yellow-300 text-yellow-900 font-bold shadow">重置</button>
+      <!-- 匯入/匯出按鈕 -->
+      <div class="flex justify-end gap-4 px-4 pb-2 items-center">
+        <input ref="importInput" type="file" accept="application/json" class="hidden" @change="importJson" />
+        <button @click="triggerImport" class="px-4 py-2 rounded bg-yellow-200 hover:bg-yellow-300 text-yellow-900 font-bold shadow">匯入JSON</button>
         <button @click="exportJson" class="px-4 py-2 rounded bg-yellow-500 hover:bg-yellow-600 text-white font-bold shadow">匯出JSON</button>
       </div>
     </div>
@@ -17,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import CharacterBasic from '~/components/character/CharacterBasic.vue'
 import CharacterDrivesSkills from '~/components/character/CharacterDrivesSkills.vue'
 import CharacterTalentsAssets from '~/components/character/CharacterTalentsAssets.vue'
@@ -42,22 +43,30 @@ const form = reactive({
   determination: 0
 })
 
-function resetForm() {
-  form.name = ''
-  form.trait = ''
-  form.house = ''
-  form.ambition = ''
-  form.role = ''
-  form.faction = ''
-  driveList.forEach(d => { form.drives[d] = 0; form.statements[d] = '' })
-  skillList.forEach(s => { form.skills[s] = 0; form.focuses[s] = '' })
-  form.talents = ''
-  form.assets = ''
-  form.xp = 0
-  form.determination = 0
+const importInput = ref<HTMLInputElement | null>(null)
+
+function triggerImport() {
+  importInput.value?.click()
+}
+
+function importJson(e: Event) {
+  const input = e.target as HTMLInputElement
+  if (!input.files || !input.files[0]) return
+  const reader = new FileReader()
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target?.result as string)
+      // 這裡根據你的新格式做對應
+      Object.assign(form, data)
+    } catch {
+      alert('JSON格式錯誤')
+    }
+  }
+  reader.readAsText(input.files[0])
 }
 
 function exportJson() {
+  // 這裡根據你的新格式做對應
   const data = JSON.stringify(form, null, 2)
   const blob = new Blob([data], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
