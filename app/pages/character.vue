@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex justify-center items-start bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 py-10 px-2">
     <div class="bg-white/90 rounded-2xl shadow-2xl max-w-5xl w-full border-4 border-yellow-300 relative flex flex-col">
-      <h1 class="text-7xl font-bold text-yellow-900 text-center mb-2 tracking-widest">DUNE</h1>
+      <h1 class="text-7xl font-bold text-yellow-900 text-center mb-2 tracking-widest">ᑐᑌᑎᑢ</h1>
       <CharacterBasic :form="form" />
       <div class="flex gap-4 mb-2 px-4">
         <CharacterDrivesSkills :form="form" :driveList="driveList" :skillList="skillList" />
