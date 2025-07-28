@@ -24,7 +24,7 @@ import CharacterBasic from '~/components/character/CharacterBasic.vue'
 import CharacterDrivesSkills from '~/components/character/CharacterDrivesSkills.vue'
 import CharacterTalentsAssets from '~/components/character/CharacterTalentsAssets.vue'
 
-const driveList = ['責責', '信仰', '正義', '權力', '真理']
+const driveList = ['職責', '信仰', '正義', '權力', '真理']
 const skillList = ['戰鬥', '溝通', '紀律', '移動', '理解']
 
 const defaultForm = () => ({
