@@ -39,10 +39,12 @@ const stepOrder = [
   'complications_random_events',
   'hidden_hand_influence'
 ]
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
 
 async function fetchData() {
   if (adventureData.value) return
-  const res = await fetch('/adventure_generator/adventure.json')
+  const res = await fetch(base + 'adventure_generator/adventure.json')
   const data = await res.json()
   adventureData.value = data
   // 依 stepOrder 排序

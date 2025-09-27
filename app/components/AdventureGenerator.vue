@@ -47,10 +47,12 @@ interface AdventureResult {
 }
 const result = ref<AdventureResult | null>(null)
 const adventureData = ref<any>(null)
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
 
 async function fetchAdventureData() {
   if (adventureData.value) return
-  const res = await fetch('/adventure_generator/adventureTitle.json')
+  const res = await fetch(base + 'adventure_generator/adventureTitle.json')
   adventureData.value = await res.json()
 }
 

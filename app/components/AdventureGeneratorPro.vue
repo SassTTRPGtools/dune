@@ -24,9 +24,11 @@ import { ref, computed, onMounted } from 'vue'
 const tables = ref<any[]>([])
 const selectedKey = ref('')
 const result = ref('')
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
 
-async function fetchTables() {
-  const res = await fetch('/adventure_generator/adventure.json')
+async function fetchTables() {  
+  const res = await fetch(base + 'adventure_generator/adventure.json')
   const data = await res.json()
   tables.value = data.adventure_tables
   if (tables.value.length > 0) selectedKey.value = tables.value[0].key

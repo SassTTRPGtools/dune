@@ -20,10 +20,12 @@ import { ref } from 'vue'
 
 const npc = ref<any>(null)
 const data = ref<any>(null)
+const config = useRuntimeConfig()
+const base = config.app.baseURL || '/'
 
 async function fetchData() {
   if (data.value) return
-  const res = await fetch('/adventure_generator/supportNPC.json')
+  const res = await fetch(base + 'adventure_generator/supportNPC.json')
   data.value = await res.json()
 }
 
