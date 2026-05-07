@@ -78,61 +78,29 @@
         </div>
       </div>
 
-      <!-- 右側：2x2 NPC網格 - 響應式主內容區 -->
-      <div class="flex-1 bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 overflow-y-auto min-h-96 lg:min-h-0">
-        <div class="p-3 sm:p-4 lg:p-6">
+      <!-- 右側：2x1 NPC網格 - 響應式主內容區 -->
+      <div class="flex-1 bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 overflow-hidden min-h-96 lg:min-h-0">
+        <div class="p-3 sm:p-4 lg:p-6 h-full flex flex-col">
           <!-- 2x2 網格模式 -->
           <div v-if="gridMode">
-            <!-- 2x2 網格 -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+            <!-- 2x1 網格 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
               <div v-for="(npc, idx) in displayedNpcs" :key="idx" 
                 @click="selectGridNpc(idx)"
-                :class="['relative bg-yellow-50/80 rounded-lg shadow-md p-4 border-2 transition-all cursor-pointer',
+                :class="['relative bg-yellow-50/80 rounded-lg shadow-md p-4 border-2 transition-all cursor-pointer flex flex-col',
                   selectedGridIdx === idx ? 'border-orange-500 shadow-lg' : 'border-yellow-300 hover:shadow-lg']">
-                <div v-if="npc" class="min-h-32">
-                  <div class="flex justify-between items-start mb-2">
+                <div v-if="npc" class="flex flex-col flex-1 overflow-hidden">
+                  <div class="flex justify-between items-start mb-2 flex-shrink-0">
                     <h3 class="text-base font-bold text-yellow-900 truncate flex-1">{{ npc.name }}</h3>
                     <button @click.stop="removeFromGrid(idx)" class="ml-2 px-2 py-1 rounded text-xs font-bold bg-red-500 text-white hover:bg-red-600">✕</button>
                   </div>
                   
-                  <div class="text-xs text-yellow-800 mb-1" v-if="npc.traits && npc.traits.length">
-                    <span class="font-semibold">特徵：</span>
-                    <span>{{ npc.traits.join('、') }}</span>
-                  </div>
-                  
-                  <div class="text-xs text-yellow-800 mb-1" v-if="npc.assets && npc.assets.length">
-                    <span class="font-semibold">資產：</span>
-                    <span>{{ npc.assets.join('、') }}</span>
-                  </div>
-                  
-                  <div class="text-xs text-yellow-800 mb-2" v-if="npc.talents && npc.talents.length">
-                    <span class="font-semibold">天賦：</span>
-                    <div>{{ npc.talents.join('、') }}</div>
-                  </div>
-                  
-                  <!-- 驅動力和技能並排 -->
-                  <div class="grid grid-cols-2 gap-2 text-xs">
-                    <div v-if="npc.drives && Object.keys(npc.drives).length > 0" class="bg-yellow-100/80 p-2 rounded">
-                      <div class="font-bold text-yellow-900 mb-1">驅動力</div>
-                      <ul class="ml-2 list-disc text-yellow-800">
-                        <li v-for="(drive, key) in Object.entries(npc.drives).slice(0, 2)" :key="key" class="text-xs">
-                          <span class="font-semibold">{{ key }}：</span>
-                          <span>{{ drive.value }}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div v-if="npc.skills && Object.keys(npc.skills).length > 0" class="bg-yellow-100/80 p-2 rounded">
-                      <div class="font-bold text-yellow-900 mb-1">技能</div>
-                      <ul class="ml-2 list-disc text-yellow-800">
-                        <li v-for="(skill, key) in Object.entries(npc.skills).slice(0, 2)" :key="key" class="text-xs">
-                          <span class="font-semibold">{{ key }}：</span>
-                          <span>{{ skill.value }}</span>
-                        </li>
-                      </ul>
-                    </div>
+                  <!-- 使用紧凑组件显示2x1网格中的NPC信息 -->
+                  <div class="overflow-y-auto flex-1">
+                    <NPCCompactInfo :npc="npc" :compact="true" />
                   </div>
                 </div>
-                <div v-else class="h-32 flex items-center justify-center text-yellow-600">
+                <div v-else class="flex items-center justify-center text-yellow-600 flex-1">
                   <span class="text-center">
                     <div class="text-2xl mb-2">+</div>
                     <div class="text-xs">點擊選擇NPC</div>
@@ -143,56 +111,29 @@
           </div>
           
           <!-- 單一模式 -->
-          <div v-else>
-            <div v-if="selectedNpc" class="npc-details-card bg-yellow-50/80 rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 border-2 border-yellow-300">
+          <div v-else class="flex flex-col h-full overflow-hidden">
+            <div v-if="selectedNpc" class="npc-details-card bg-yellow-50/80 rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 border-2 border-yellow-300 flex flex-col h-full overflow-y-auto">
               <div class="mb-4">
                 <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-900">{{ selectedNpc.name }}</h2>
               </div>
               <div class="mb-2 text-yellow-700 italic text-sm sm:text-base" v-if="selectedNpc.description">
                 <div v-for="desc in (Array.isArray(selectedNpc.description) ? selectedNpc.description : [selectedNpc.description])" :key="desc">{{ desc }}</div>
               </div>
-              <div class="mb-2 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.traits && selectedNpc.traits.length">特徵：{{ selectedNpc.traits.join('、') }}</div>
-              <div class="mb-2 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.assets && selectedNpc.assets.length">資產：{{ selectedNpc.assets.join('、') }}</div>
-              <div class="mb-2 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.talents && selectedNpc.talents.length">
-                <div class="font-bold mb-1">天賦：</div>
-                <ul class="talent-list">
-                  <li v-for="talent in selectedNpc.talents" :key="talent" class="talent-item">{{ talent }}</li>
-                </ul>
-              </div>
-              <!-- 驅動力和技能並排 -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.drives">
-                  <div class="font-bold mb-2">驅動力：</div>
-                  <ul class="ml-4 list-disc">
-                    <li v-for="(drive, key) in selectedNpc.drives" :key="key">
-                      <span class="font-semibold">{{ key }}：</span>
-                      <span>{{ drive.value }}</span>
-                      <span v-if="drive.statement">，{{ drive.statement }}</span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.skills">
-                  <div class="font-bold mb-2">技能：</div>
-                  <ul class="ml-4 list-disc">
-                    <li v-for="(skill, key) in selectedNpc.skills" :key="key">
-                      <span class="font-semibold">{{ key }}：</span>
-                      <span>{{ skill.value }}</span>
-                      <span v-if="skill.focuses && skill.focuses.length">（{{ skill.focuses.join('、') }}）</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="mt-4 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.exampleCharacters && selectedNpc.exampleCharacters.length">
+              <!-- 使用可复用组件显示基本信息 -->
+              <NPCCompactInfo :npc="selectedNpc" />
+              <div class="mt-4 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.exampleCharacters">
                 <div class="font-bold">範例角色：</div>
-                <ul class="ml-4 list-disc">
+                <ul class="ml-4 list-disc" v-if="selectedNpc.exampleCharacters.length">
                   <li v-for="ex in selectedNpc.exampleCharacters" :key="ex">{{ ex }}</li>
                 </ul>
+                <div v-else class="text-yellow-700 italic">無</div>
               </div>
-              <div class="mt-4 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.scenarioHooks && selectedNpc.scenarioHooks.length">
+              <div class="mt-4 text-yellow-900 text-sm sm:text-base" v-if="selectedNpc.scenarioHooks">
                 <div class="font-bold">劇情鉤子：</div>
-                <ul class="ml-4 list-disc">
+                <ul class="ml-4 list-disc" v-if="selectedNpc.scenarioHooks.length">
                   <li v-for="hook in selectedNpc.scenarioHooks" :key="hook">{{ hook }}</li>
                 </ul>
+                <div v-else class="text-yellow-700 italic">無</div>
               </div>
             </div>
             <div v-else class="text-yellow-700 text-center text-sm py-8">
@@ -220,7 +161,7 @@ const searchText = ref('')
 const npcListMap = ref<Record<string, any[]>>({})
 const selectedNpc = ref<any | null>(null)
 const taggedNpcs = ref<any[]>([]) // 標籤NPC列表
-const displayedNpcs = ref<(any | null)[]>([null, null, null, null]) // 2x2網格的4個位置
+const displayedNpcs = ref<(any | null)[]>([null, null]) // 2x1網格的2個位置
 const selectedGridIdx = ref<number | null>(null) // 當前選中的網格位置
 const gridMode = ref(true) // 是否為2x2網格模式
 
@@ -378,24 +319,6 @@ onMounted(loadAllNpcLists)
   }
 }
 
-/* 天賦樣式 */
-.talent-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.talent-item {
-  background: linear-gradient(90deg, #fef9c3 70%, #fde68a 100%);
-  border-left: 5px solid #facc15;
-  border-radius: 0.375rem;
-  margin-bottom: 0.3em;
-  padding: 0.4em 0.8em;
-  font-weight: 500;
-  color: #b45309;
-  box-shadow: 0 1px 4px #eab30822;
-  transition: background 0.2s;
-}
-
 /* 限制行數 */
 .line-clamp-2 {
   display: -webkit-box;
@@ -410,9 +333,5 @@ onMounted(loadAllNpcLists)
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.talent-item:last-child {
-  margin-bottom: 0;
 }
 </style>
