@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 py-10 px-4">
-    <div class="max-w-4xl mx-auto bg-white/80 rounded-xl shadow-lg p-8">
+    <div class="max-w-7xl mx-auto bg-white/80 rounded-xl shadow-lg p-8">
       <h1 class="text-3xl font-bold text-yellow-800 mb-6 text-center drop-shadow desert-title">天賦查詢</h1>
       <div class="flex flex-col md:flex-row gap-4 mb-6">
         <select v-model="selectedBook" class="px-4 py-2 border border-yellow-400 rounded focus:outline-none focus:ring-2 focus:ring-yellow-600 bg-yellow-50 text-yellow-900">
@@ -16,13 +16,15 @@
         <input v-model="search" type="text" placeholder="輸入天賦名稱或描述..." class="flex-1 px-4 py-2 border border-yellow-400 rounded focus:outline-none focus:ring-2 focus:ring-yellow-600 bg-yellow-50 text-yellow-900" />
       </div>
       <div v-if="filteredTalents.length === 0" class="text-center text-yellow-700">查無天賦</div>
-      <div v-for="talent in filteredTalents" :key="talent.name" class="mb-6 p-4 rounded-lg border border-yellow-300 bg-yellow-100/80 shadow desert-card">
-        <h2 class="text-xl font-bold text-yellow-900 mb-1">{{ talent.name }}</h2>
-        <div class="text-sm text-yellow-700 mb-1">
-          類型：<span v-if="Array.isArray(talent.type)">{{ talent.type.join('、') }}</span><span v-else>{{ talent.type }}</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div v-for="talent in filteredTalents" :key="talent.name" class="p-4 rounded-lg border border-yellow-300 bg-yellow-100/80 shadow desert-card">
+          <h2 class="text-lg font-bold text-yellow-900 mb-2">{{ talent.name }}</h2>
+          <div class="text-sm text-yellow-700 mb-2">
+            類型：<span v-if="Array.isArray(talent.type)">{{ talent.type.join('、') }}</span><span v-else>{{ talent.type }}</span>
+          </div>
+          <div class="text-sm text-yellow-800 mb-2 italic">{{ talent.description }}</div>
+          <div class="bg-yellow-200/80 border-l-4 border-yellow-400 px-3 py-2 rounded text-sm text-yellow-900 shadow-sm"><span class="text-yellow-800">{{ talent.effect }}</span></div>
         </div>
-        <div class="text-yellow-800 mb-1 italic">{{ talent.description }}</div>
-        <div class="bg-yellow-200/80 border-l-4 border-yellow-400 px-3 py-2 rounded text-yellow-900 shadow-sm mb-1"><span class="text-yellow-800">{{ talent.effect }}</span></div>
       </div>
     </div>
   </div>
