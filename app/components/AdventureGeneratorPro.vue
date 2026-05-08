@@ -1,17 +1,17 @@
 <template>
-  <div class="adventure-generator-pro p-6 bg-yellow-50 rounded shadow">
-    <h2 class="text-xl font-bold mb-4 text-yellow-900">進階冒險要素產生器</h2>
+  <div class="adventure-generator-pro p-6 bg-yellow-50 dark:bg-gray-800 rounded shadow dark:shadow-black/30 transition-colors">
+    <h2 class="text-xl font-bold mb-4 text-yellow-900 dark:text-gray-100">進階冒險要素產生器</h2>
     <div class="mb-4">
-      <label class="font-semibold mr-2">選擇表格：</label>
-      <select v-model="selectedKey" class="border rounded px-2 py-1">
+      <label class="font-semibold mr-2 text-yellow-900 dark:text-gray-100">選擇表格：</label>
+      <select v-model="selectedKey" class="border rounded px-2 py-1 border-yellow-400 dark:border-gray-600 bg-white dark:bg-gray-700 text-yellow-900 dark:text-gray-100">
         <option v-for="table in tables" :key="table.key" :value="table.key">{{ table.title }}</option>
       </select>
     </div>
     <div v-if="currentTable">
-      <div class="mb-2 text-lg font-bold text-yellow-800">{{ currentTable.title }}</div>
-      <div class="mb-2 text-sm text-yellow-700">{{ currentTable.description }}</div>
-      <button @click="rollOption" class="bg-yellow-700 text-yellow-100 px-4 py-2 rounded hover:bg-orange-400 transition">擲骰</button>
-      <div v-if="result" class="mt-4 text-base text-orange-900 bg-yellow-100 rounded p-3">
+      <div class="mb-2 text-lg font-bold text-yellow-800 dark:text-gray-200">{{ currentTable.title }}</div>
+      <div class="mb-2 text-sm text-yellow-700 dark:text-gray-300">{{ currentTable.description }}</div>
+      <button @click="rollOption" class="bg-yellow-700 dark:bg-yellow-800 text-yellow-100 dark:text-yellow-200 px-4 py-2 rounded hover:bg-orange-400 dark:hover:bg-orange-700 transition">擲骰</button>
+      <div v-if="result" class="mt-4 text-base text-orange-900 dark:text-orange-300 bg-yellow-100 dark:bg-gray-700 rounded p-3">
         <b>結果：</b> {{ result }}
       </div>
     </div>

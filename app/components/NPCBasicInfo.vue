@@ -2,17 +2,17 @@
   <!-- 基本信息显示组件 -->
   <div>
     <!-- 特徵 -->
-    <div class="mb-2 text-yellow-900 text-sm sm:text-base" v-if="npc.traits && npc.traits.length">
+    <div class="mb-2 text-yellow-900 dark:text-gray-100 text-sm sm:text-base" v-if="npc.traits && npc.traits.length">
       特徵：{{ npc.traits.join('、') }}
     </div>
 
     <!-- 資產 -->
-    <div class="mb-2 text-yellow-900 text-sm sm:text-base" v-if="npc.assets && npc.assets.length">
+    <div class="mb-2 text-yellow-900 dark:text-gray-100 text-sm sm:text-base" v-if="npc.assets && npc.assets.length">
       資產：{{ npc.assets.join('、') }}
     </div>
 
     <!-- 天賦 -->
-    <div class="mb-2 text-yellow-900 text-sm sm:text-base" v-if="npc.talents && npc.talents.length">
+    <div class="mb-2 text-yellow-900 dark:text-gray-100 text-sm sm:text-base" v-if="npc.talents && npc.talents.length">
       <div class="font-bold mb-1">天賦：</div>
       <ul class="talent-list">
         <li v-for="talent in npc.talents" :key="talent" class="talent-item">{{ talent }}</li>
@@ -21,7 +21,7 @@
 
     <!-- 驅動力和技能並排 -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="text-yellow-900 text-sm sm:text-base" v-if="npc.drives">
+      <div class="text-yellow-900 dark:text-gray-100 text-sm sm:text-base" v-if="npc.drives">
         <div class="font-bold mb-2">驅動力：</div>
         <ul class="ml-4 list-disc">
           <li v-for="(drive, key) in npc.drives" :key="key">
@@ -31,7 +31,7 @@
           </li>
         </ul>
       </div>
-      <div class="text-yellow-900 text-sm sm:text-base" v-if="npc.skills">
+      <div class="text-yellow-900 dark:text-gray-100 text-sm sm:text-base" v-if="npc.skills">
         <div class="font-bold mb-2">技能：</div>
         <ul class="ml-4 list-disc">
           <li v-for="(skill, key) in npc.skills" :key="key">

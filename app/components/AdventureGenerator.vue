@@ -1,12 +1,12 @@
 <template>
-  <div class="adventure-generator p-6 bg-yellow-50 rounded shadow">
+  <div class="adventure-generator p-6 bg-yellow-50 dark:bg-gray-800 rounded shadow dark:shadow-black/30 transition-colors">
     <div class="flex justify-center mb-2">
-      <button @click="generateAdventure" class="bg-yellow-700 text-yellow-100 px-4 py-2 rounded hover:bg-orange-400 transition">產生冒險標題</button>
+      <button @click="generateAdventure" class="bg-yellow-700 dark:bg-yellow-800 text-yellow-100 dark:text-yellow-200 px-4 py-2 rounded hover:bg-orange-400 dark:hover:bg-orange-700 transition">產生冒險標題</button>
     </div>
-    <div v-if="result" class="mt-6 text-lg font-semibold text-orange-900">
+    <div v-if="result" class="mt-6 text-lg font-semibold text-orange-900 dark:text-orange-300">
       <span>結果：</span>
       <span>{{ result.title }}</span>
-      <div class="mt-4 text-base text-yellow-900 bg-yellow-100 rounded p-3" v-if="result.structure">
+      <div class="mt-4 text-base text-yellow-900 dark:text-gray-100 bg-yellow-100 dark:bg-gray-700 rounded p-3" v-if="result.structure">
         <div><b>原始結構：</b> {{ result.structure }}</div>
         <div v-if="result.details && result.details.length">
           <b>骰出內容：</b>

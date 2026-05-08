@@ -1,17 +1,17 @@
 <template>
   <span class="relative group cursor-pointer select-text" @mouseenter="show = true" @mouseleave="show = false" @click="copyTalent">
     <slot />
-    <div v-if="show && (detail || talent)" class="absolute z-50 left-1/2 -translate-x-1/2 mt-2 w-96 bg-white/90 border border-yellow-400 rounded-lg shadow-lg p-4 text-sm text-yellow-900 transition-opacity duration-200">
+    <div v-if="show && (detail || talent)" class="absolute z-50 left-1/2 -translate-x-1/2 mt-2 w-96 bg-white/90 dark:bg-gray-800 border border-yellow-400 dark:border-gray-600 rounded-lg shadow-lg dark:shadow-black/50 p-4 text-sm text-yellow-900 dark:text-gray-100 transition-opacity duration-200">
       <div v-if="detail">
-        <div class="font-bold text-yellow-900 mb-1">{{ detail.name }}</div>
-        <div class="text-yellow-700 mb-1">類型：{{ Array.isArray(detail.type) ? detail.type.join('、') : detail.type }}</div>
-        <div class="mb-1 text-yellow-800 italic">{{ detail.description }}</div>
-        <div class="mb-1 text-yellow-900">效果：{{ detail.effect }}</div>
+        <div class="font-bold text-yellow-900 dark:text-gray-100 mb-1">{{ detail.name }}</div>
+        <div class="text-yellow-700 dark:text-gray-300 mb-1">類型：{{ Array.isArray(detail.type) ? detail.type.join('、') : detail.type }}</div>
+        <div class="mb-1 text-yellow-800 dark:text-gray-200 italic">{{ detail.description }}</div>
+        <div class="mb-1 text-yellow-900 dark:text-gray-100">效果：{{ detail.effect }}</div>
       </div>
       <div v-else>
-        <div class="font-bold text-yellow-900 mb-1">天賦：{{ talent }}</div>
+        <div class="font-bold text-yellow-900 dark:text-gray-100 mb-1">天賦：{{ talent }}</div>
       </div>
-      <div v-if="copied" class="text-green-600 text-xs mt-1">已複製！</div>
+      <div v-if="copied" class="text-green-600 dark:text-green-400 text-xs mt-1">已複製！</div>
     </div>
   </span>
 </template>

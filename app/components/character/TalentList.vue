@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-wrap gap-2 max-h-56 overflow-y-auto pr-2 relative">
     <div v-for="(talent, idx) in list" :key="idx" class="relative group flex items-center gap-1 mb-1">
-      <span class="font-bold text-yellow-900 cursor-pointer px-2 py-0.5 bg-yellow-50 rounded hover:bg-yellow-100 transition" @mouseenter="onMouseEnter(idx, $event)" @mouseleave="onMouseLeave" @click="copyTalent(talent)">
+      <span class="font-bold text-yellow-900 dark:text-gray-100 cursor-pointer px-2 py-0.5 bg-yellow-50 dark:bg-gray-600 rounded hover:bg-yellow-100 dark:hover:bg-gray-500 transition" @mouseenter="onMouseEnter(idx, $event)" @mouseleave="onMouseLeave" @click="copyTalent(talent)">
         {{ talent.title || talent.name }}
       </span>
-      <button @click.stop="remove(idx)" class="text-xs text-red-600 hover:text-red-800">移除</button>
+      <button @click.stop="remove(idx)" class="text-xs text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300">移除</button>
       <teleport to="body">
-        <div v-if="hoverIdx === idx && hoverPos" :style="hoverStyle" class="fixed z-50 bg-white border border-yellow-400 rounded shadow p-2 w-80 text-yellow-900 whitespace-pre-line">
+        <div v-if="hoverIdx === idx && hoverPos" :style="hoverStyle" class="fixed z-50 bg-white dark:bg-gray-800 border border-yellow-400 dark:border-gray-600 rounded shadow dark:shadow-black/50 p-2 w-80 text-yellow-900 dark:text-gray-100 whitespace-pre-line">
           <div class="font-bold mb-1">{{ talent.title || talent.name }}</div>
           <div>{{ talent.description }}</div>
           <div class="mt-1 text-xs">效果：{{ talent.effect }}</div>
@@ -15,7 +15,7 @@
     </div>
   </div>
       <transition name="fade">
-      <div v-if="copied" class="absolute left-1/2 -translate-x-1/2 top-4 z-50 bg-yellow-500 text-white px-6 py-2 rounded shadow-lg font-bold text-lg pointer-events-none select-none">
+      <div v-if="copied" class="absolute left-1/2 -translate-x-1/2 top-4 z-50 bg-yellow-500 dark:bg-yellow-700 text-white px-6 py-2 rounded shadow-lg dark:shadow-black/50 font-bold text-lg pointer-events-none select-none">
         已複製！
       </div>
     </transition>

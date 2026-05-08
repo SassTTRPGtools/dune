@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen flex justify-center items-start bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 py-10 px-2">
-    <div class="bg-white/90 rounded-2xl shadow-2xl max-w-5xl w-full border-4 border-yellow-300 relative flex flex-col">
-      <h1 class="text-7xl font-bold text-yellow-900 text-center mb-2 tracking-widest">ᑐᑌᑎᑢ</h1>
+  <div class="min-h-screen flex justify-center items-start bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 py-10 px-2 transition-colors duration-300">
+    <div class="bg-white/90 dark:bg-gray-800 rounded-2xl shadow-2xl dark:shadow-black/50 max-w-5xl w-full border-4 border-yellow-300 dark:border-gray-600 relative flex flex-col">
+      <h1 class="text-7xl font-bold text-yellow-900 dark:text-gray-100 text-center mb-2 tracking-widest">ᑐᑌᑎᑢ</h1>
       <CharacterBasic :form="form" />
       <div class="flex gap-4 mb-2 px-4">
         <CharacterDrivesSkills :form="form" :driveList="driveList" :skillList="skillList" />
@@ -10,11 +10,11 @@
       <!-- 匯入/匯出按鈕 -->
       <div class="flex flex-wrap justify-center gap-4 px-4 pb-2 items-center">
         <input ref="importInput" type="file" accept="application/json" class="hidden" @change="importJson" />
-        <button @click="triggerImport" class="px-4 py-2 rounded bg-yellow-200 hover:bg-yellow-300 text-yellow-900 font-bold shadow">匯入JSON</button>
-        <button @click="exportJson" class="px-4 py-2 rounded bg-yellow-500 hover:bg-yellow-600 text-white font-bold shadow">匯出JSON</button>
-        <button @click="copyText" class="px-4 py-2 rounded bg-yellow-700 hover:bg-yellow-800 text-white font-bold shadow">複製角色卡文字</button>
-        <span v-if="copied" class="text-green-700 font-bold ml-2">已複製！</span>
-        <button @click="clearAll" class="px-4 py-2 rounded bg-red-400 hover:bg-red-600 text-white font-bold shadow">清空全部</button>
+        <button @click="triggerImport" class="px-4 py-2 rounded bg-yellow-200 dark:bg-yellow-700 hover:bg-yellow-300 dark:hover:bg-yellow-600 text-yellow-900 dark:text-yellow-100 font-bold shadow transition">匯入JSON</button>
+        <button @click="exportJson" class="px-4 py-2 rounded bg-yellow-500 dark:bg-gray-700 hover:bg-yellow-600 dark:hover:bg-gray-600 text-white dark:text-gray-100 font-bold shadow transition">匯出JSON</button>
+        <button @click="copyText" class="px-4 py-2 rounded bg-yellow-700 dark:bg-orange-700 hover:bg-yellow-800 dark:hover:bg-orange-600 text-white dark:text-orange-100 font-bold shadow transition">複製角色卡文字</button>
+        <span v-if="copied" class="text-green-700 dark:text-green-400 font-bold ml-2">已複製！</span>
+        <button @click="clearAll" class="px-4 py-2 rounded bg-red-400 dark:bg-red-900 hover:bg-red-600 dark:hover:bg-red-800 text-white dark:text-red-100 font-bold shadow transition">清空全部</button>
       </div>
 
     </div>

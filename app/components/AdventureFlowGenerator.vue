@@ -1,14 +1,14 @@
 <template>
-  <div class="adventure-flow-generator p-6 bg-yellow-50 rounded shadow">
-    <h2 class="text-xl font-bold mb-4 text-yellow-900">冒險流程產生器</h2>
-    <button @click="generateAll" class="bg-yellow-700 text-yellow-100 px-4 py-2 rounded hover:bg-orange-400 transition mb-6">一鍵產生完整冒險</button>
+  <div class="adventure-flow-generator p-6 bg-yellow-50 dark:bg-gray-800 rounded shadow dark:shadow-black/30 transition-colors duration-300">
+    <h2 class="text-xl font-bold mb-4 text-yellow-900 dark:text-gray-100">冒險流程產生器</h2>
+    <button @click="generateAll" class="bg-yellow-700 dark:bg-yellow-800 text-yellow-100 dark:text-yellow-200 px-4 py-2 rounded hover:bg-orange-400 dark:hover:bg-orange-700 transition mb-6">一鍵產生完整冒險</button>
     <div v-for="(step, idx) in steps" :key="step.key" class="mb-6">
       <div class="flex items-center mb-1">
-        <div class="font-bold text-yellow-800 text-base">{{ step.title }}</div>
-        <button @click="reroll(idx)" class="ml-2 px-2 py-1 text-xs bg-yellow-400 rounded hover:bg-orange-500">重骰</button>
+        <div class="font-bold text-yellow-800 dark:text-gray-200 text-base">{{ step.title }}</div>
+        <button @click="reroll(idx)" class="ml-2 px-2 py-1 text-xs bg-yellow-400 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-100 rounded hover:bg-orange-500 dark:hover:bg-orange-700 transition">重骰</button>
       </div>
-      <div class="text-sm text-yellow-700 mb-1">{{ step.description }}</div>
-      <div v-if="results[idx]" class="bg-yellow-100 rounded p-3 text-orange-900">
+      <div class="text-sm text-yellow-700 dark:text-gray-300 mb-1">{{ step.description }}</div>
+      <div v-if="results[idx]" class="bg-yellow-100 dark:bg-gray-700 rounded p-3 text-orange-900 dark:text-orange-300 transition-colors duration-300">
         <span v-if="results[idx].roll">🎲 <b>骰點：</b>{{ results[idx].roll }}　</span>
         <span><b>結果：</b>{{ results[idx].result }}</span>
       </div>

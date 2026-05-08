@@ -1,8 +1,8 @@
 <template>
-  <div class="support-npc-generator p-6 bg-yellow-50 rounded shadow">
-    <h2 class="text-xl font-bold mb-4 text-yellow-900">輔助NPC產生器</h2>
-    <button @click="generateNPC" class="bg-yellow-700 text-yellow-100 px-4 py-2 rounded hover:bg-orange-400 transition mb-4">產生NPC</button>
-    <div v-if="npc" class="mt-4 text-base text-orange-900 bg-yellow-100 rounded p-3">
+  <div class="support-npc-generator p-6 bg-yellow-50 dark:bg-gray-800 rounded shadow dark:shadow-black/30 transition-colors duration-300">
+    <h2 class="text-xl font-bold mb-4 text-yellow-900 dark:text-gray-100">輔助NPC產生器</h2>
+    <button @click="generateNPC" class="bg-yellow-700 dark:bg-yellow-800 text-yellow-100 dark:text-yellow-200 px-4 py-2 rounded hover:bg-orange-400 dark:hover:bg-orange-700 transition mb-4">產生NPC</button>
+    <div v-if="npc" class="mt-4 text-base text-orange-900 dark:text-orange-300 bg-yellow-100 dark:bg-gray-700 rounded p-3 transition-colors duration-300">
       <div><b>背景：</b>{{ npc.background }}（技能：{{ npc.skill }}）</div>
       <div><b>動機：</b>{{ npc.motivation }}（驅動：{{ npc.drive }}）</div>
       <div><b>效忠：</b>{{ npc.loyalty }}</div>

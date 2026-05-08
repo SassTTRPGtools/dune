@@ -1,75 +1,75 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 py-10 px-4">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 py-10 px-4 transition-colors duration-300">
     <div class="max-w-6xl mx-auto">
       <!-- Factions Section -->
-      <h1 class="text-2xl font-bold text-yellow-900 mb-4 tracking-widest">派系模板</h1>
+      <h1 class="text-2xl font-bold text-yellow-900 dark:text-gray-100 mb-4 tracking-widest">派系模板</h1>
       <div class="mb-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div v-for="faction in factions" :key="faction.name" class="bg-white/80 rounded-xl shadow-lg p-6 flex flex-col">
-          <h2 class="text-xl font-bold text-yellow-900 mb-2">{{ faction.name }}</h2>
-          <div class="text-yellow-800 mb-2">{{ faction.description }}</div>
-          <div class="text-sm text-yellow-700 mb-1">額外特徵：{{ faction.extraTrait }}</div>
-          <div class="text-sm text-yellow-700 mb-1">
+        <div v-for="faction in factions" :key="faction.name" class="bg-white/80 dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/50 p-6 flex flex-col">
+          <h2 class="text-xl font-bold text-yellow-900 dark:text-gray-100 mb-2">{{ faction.name }}</h2>
+          <div class="text-yellow-800 dark:text-gray-200 mb-2">{{ faction.description }}</div>
+          <div class="text-sm text-yellow-700 dark:text-gray-300 mb-1">額外特徵：{{ faction.extraTrait }}</div>
+          <div class="text-sm text-yellow-700 dark:text-gray-300 mb-1">
             推薦原型：
             <template v-for="(archetypeName, idx) in faction.recommendedArchetypes" :key="archetypeName">
               <FactionTooltip :archetype="findArchetype(archetypeName)">
                 <span
-                  class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer"
+                  class="underline decoration-dotted decoration-yellow-700 dark:decoration-gray-400 hover:text-yellow-900 dark:hover:text-yellow-300 cursor-pointer"
                   @click.prevent="scrollToArchetype(archetypeName)"
                 >{{ archetypeName }}</span>
               </FactionTooltip>
               <span v-if="idx !== faction.recommendedArchetypes.length - 1">、</span>
             </template>
           </div>
-          <div v-if="faction.mandatoryTalents" class="text-sm text-yellow-700 mb-1">
+          <div v-if="faction.mandatoryTalents" class="text-sm text-yellow-700 dark:text-gray-300 mb-1">
             必選天賦：
             <template v-if="Array.isArray(faction.mandatoryTalents)">
                 <template v-for="(tal, i) in faction.mandatoryTalents" :key="tal">
                   <TalentTooltip :talent="getTalentName(tal)">
-                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ tal }}</span>
+                    <span class="underline decoration-dotted decoration-yellow-700 dark:decoration-gray-400 hover:text-yellow-900 dark:hover:text-yellow-300 cursor-pointer">{{ tal }}</span>
                   </TalentTooltip>
                   <span v-if="i !== faction.mandatoryTalents.length - 1">、</span>
                 </template>
             </template>
             <template v-else>
               <TalentTooltip :talent="getTalentName(faction.mandatoryTalents)">
-                <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ getTalentName(faction.mandatoryTalents) }}</span>
+                <span class="underline decoration-dotted decoration-yellow-700 dark:decoration-gray-400 hover:text-yellow-900 dark:hover:text-yellow-300 cursor-pointer">{{ getTalentName(faction.mandatoryTalents) }}</span>
               </TalentTooltip>
             </template>
           </div>
-          <div v-if="faction.talentRule" class="text-xs text-yellow-600 mt-1">{{ faction.talentRule }}</div>
+          <div v-if="faction.talentRule" class="text-xs text-yellow-600 dark:text-gray-400 mt-1">{{ faction.talentRule }}</div>
         </div>
       </div>
       <!-- Archetype Section (合併) -->
       <div v-for="archetype in allArchetypes" :key="archetype.name" class="mb-10">
-        <div :id="'archetype-' + archetype.name" class="bg-white/90 rounded-xl shadow-lg p-6 mb-4">
-          <h2 class="text-2xl font-bold text-yellow-900 mb-2">{{ archetype.name }}</h2>
-          <div class="text-yellow-800 mb-2">{{ archetype.description }}</div>
-          <div class="italic text-yellow-700 mb-2">{{ archetype.quote }}</div>
+        <div :id="'archetype-' + archetype.name" class="bg-white/90 dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-black/50 p-6 mb-4">
+          <h2 class="text-2xl font-bold text-yellow-900 dark:text-gray-100 mb-2">{{ archetype.name }}</h2>
+          <div class="text-yellow-800 dark:text-gray-200 mb-2">{{ archetype.description }}</div>
+          <div class="italic text-yellow-700 dark:text-gray-300 mb-2">{{ archetype.quote }}</div>
           <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div v-for="role in archetype.roles" :key="role.name" class="bg-yellow-100/80 rounded-lg border border-yellow-300 p-4 flex flex-col">
-              <h3 class="text-lg font-bold text-yellow-900 mb-1">{{ role.name }}</h3>
-              <div class="text-yellow-800 mb-1">特徵：{{ role.trait }}</div>
-              <div class="text-yellow-700 mb-1">主技能：{{ role.primary_skill }}</div>
-              <div class="text-yellow-700 mb-1">副技能：{{ role.secondary_skill }}</div>
-              <div class="text-yellow-700 mb-1">焦點：{{ role.focuses.join('、') }}</div>
-              <div v-if="role.talent" class="text-yellow-900 font-semibold mb-1">
+            <div v-for="role in archetype.roles" :key="role.name" class="bg-yellow-100/80 dark:bg-gray-700 rounded-lg border border-yellow-300 dark:border-gray-600 p-4 flex flex-col">
+              <h3 class="text-lg font-bold text-yellow-900 dark:text-gray-100 mb-1">{{ role.name }}</h3>
+              <div class="text-yellow-800 dark:text-gray-200 mb-1">特徵：{{ role.trait }}</div>
+              <div class="text-yellow-700 dark:text-gray-300 mb-1">主技能：{{ role.primary_skill }}</div>
+              <div class="text-yellow-700 dark:text-gray-300 mb-1">副技能：{{ role.secondary_skill }}</div>
+              <div class="text-yellow-700 dark:text-gray-300 mb-1">焦點：{{ role.focuses.join('、') }}</div>
+              <div v-if="role.talent" class="text-yellow-900 dark:text-gray-100 font-semibold mb-1">
                 天賦：
                 <template v-if="Array.isArray(role.talent)">
                 <template v-for="(tal, i) in role.talent" :key="tal">
                   <TalentTooltip :talent="getTalentName(tal)">
-                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ getTalentName(tal) }}</span>
+                    <span class="underline decoration-dotted decoration-yellow-700 dark:decoration-gray-400 hover:text-yellow-900 dark:hover:text-yellow-300 cursor-pointer">{{ getTalentName(tal) }}</span>
                   </TalentTooltip>
                   <span v-if="i !== role.talent.length - 1">、</span>
                 </template>
                 </template>
                 <template v-else>
                   <TalentTooltip :talent="getTalentName(role.talent)">
-                    <span class="underline decoration-dotted decoration-yellow-700 hover:text-yellow-900 cursor-pointer">{{ getTalentName(role.talent) }}</span>
+                    <span class="underline decoration-dotted decoration-yellow-700 dark:decoration-gray-400 hover:text-yellow-900 dark:hover:text-yellow-300 cursor-pointer">{{ getTalentName(role.talent) }}</span>
                   </TalentTooltip>
 
                 </template>
               </div>
-              <div class="text-yellow-600 text-xs">驅動力：{{ role.drive }}</div>
+              <div class="text-yellow-600 dark:text-gray-400 text-xs">驅動力：{{ role.drive }}</div>
             </div>
           </div>
         </div>

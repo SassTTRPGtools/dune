@@ -1,3 +1,91 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 暗色主題全局樣式 */
+@layer base {
+  .dark {
+    color-scheme: dark;
+  }
+
+  .dark body {
+    @apply bg-gray-950 text-gray-100;
+  }
+}
+
+@layer components {
+  /* 頁面背景漸層 - 亮色 */
+  .page-gradient-light {
+    @apply bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-300;
+  }
+
+  /* 頁面背景漸層 - 暗色 */
+  .page-gradient-dark {
+    @apply dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-700;
+  }
+
+  /* 白色卡片 - 亮色 */
+  .card-light {
+    @apply bg-white/90 rounded-2xl shadow-2xl border-4 border-yellow-300;
+  }
+
+  /* 暗色卡片 */
+  .card-dark {
+    @apply dark:bg-gray-800 dark:border-gray-600 dark:shadow-2xl dark:shadow-black/50;
+  }
+
+  /* 按鈕基礎樣式 */
+  .btn-primary {
+    @apply px-4 py-2 rounded font-bold shadow transition-colors;
+  }
+
+  .btn-primary-light {
+    @apply bg-yellow-200 hover:bg-yellow-300 text-yellow-900;
+  }
+
+  .btn-primary-dark {
+    @apply dark:bg-yellow-700 dark:hover:bg-yellow-600 dark:text-yellow-100;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded font-bold shadow transition-colors;
+  }
+
+  .btn-secondary-light {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-white;
+  }
+
+  .btn-secondary-dark {
+    @apply dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-100;
+  }
+
+  .btn-danger {
+    @apply px-4 py-2 rounded font-bold shadow transition-colors;
+  }
+
+  .btn-danger-light {
+    @apply bg-red-400 hover:bg-red-600 text-white;
+  }
+
+  .btn-danger-dark {
+    @apply dark:bg-red-900 dark:hover:bg-red-800 dark:text-red-100;
+  }
+
+  /* 標題文字 */
+  .title-text-light {
+    @apply text-yellow-900;
+  }
+
+  .title-text-dark {
+    @apply dark:text-gray-100;
+  }
+
+  /* 輸入框 */
+  .input-field {
+    @apply px-3 py-2 rounded border-2 border-yellow-300 bg-white text-yellow-900 placeholder-yellow-500 focus:outline-none focus:border-yellow-500 transition;
+  }
+
+  .input-field-dark {
+    @apply dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:border-yellow-600;
+  }
+}
