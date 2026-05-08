@@ -13,9 +13,9 @@
 
     <!-- 天賦 -->
     <div v-if="npc.talents && npc.talents.length" :class="[compact ? 'mb-2' : 'mb-2']">
-      <div :class="compact ? 'text-sm font-bold text-yellow-900 dark:text-gray-100 mb-1' : 'text-yellow-900 dark:text-gray-100 text-sm sm:text-base font-bold mb-1'">天賦：</div>
-      <ul class="talent-list">
-        <li v-for="talent in (compact ? npc.talents.slice(0, 4) : npc.talents)" :key="talent" class="talent-item text-sm">{{ talent }}</li>
+      <div :class="compact ? 'text-sm text-yellow-900 dark:text-gray-100 mb-1' : 'text-yellow-900 dark:text-gray-100 text-sm sm:text-base mb-1'">天賦：</div>
+      <ul >
+        <li v-for="talent in (compact ? npc.talents.slice(0, 4) : npc.talents)" :key="talent" :class="compact ? 'text-sm text-yellow-900 dark:text-gray-100 mb-1' : 'text-yellow-900 dark:text-gray-100 text-sm sm:text-base mb-1'">{{ talent }}</li>
       </ul>
     </div>
 

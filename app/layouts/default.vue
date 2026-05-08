@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
+  <div class="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
     <header class="w-full bg-gradient-to-r from-yellow-700 via-yellow-500 to-orange-300 dark:from-gray-800 dark:via-gray-700 dark:to-gray-600 shadow-lg py-4 px-8 flex items-center justify-between desert-header flex-shrink-0 transition-colors duration-300">
       <div class="text-2xl font-bold text-yellow-100 dark:text-gray-200 tracking-widest desert-title drop-shadow font-neon">DUNE 沙丘資料庫</div>
       <nav class="flex items-center space-x-4">
@@ -46,37 +46,14 @@ onMounted(() => {
     const saved = localStorage.getItem('dune-theme')
     if (saved === 'dark') {
       isDark.value = true
+      document.documentElement.classList.add('dark')
     } else if (!saved) {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
       isDark.value = prefersDark
+      if (prefersDark) {
+        document.documentElement.classList.add('dark')
+      }
     }
   }
 })
 </script>
-<style scoped>
-.desert-header {
-  border-bottom: 3px solid #eab308;
-  box-shadow: 0 4px 16px #eab30833;
-  background-image: linear-gradient(90deg, #a16207 0%, #fde68a 60%, #fdba74 100%);
-}
-
-:global(.dark) .desert-header {
-  border-bottom-color: #4b5563;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-  background-image: linear-gradient(90deg, #1f2937 0%, #374151 60%, #4b5563 100%);
-}
-
-.desert-title {
-  font-family: 'Neon Club Music', 'Cinzel', serif;
-  letter-spacing: 0.08em;
-  text-shadow: 0 2px 8px #eab30899, 0 1px 0 #fff;
-}
-
-:global(.dark) .desert-title {
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.font-neon {
-  font-family: 'Neon Club Music', 'Cinzel', serif !important;
-}
-</style>

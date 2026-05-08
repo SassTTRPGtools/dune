@@ -18,7 +18,7 @@
       <div v-if="filteredTalents.length === 0" class="text-center text-yellow-700 dark:text-gray-300">查無天賦</div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div v-for="talent in filteredTalents" :key="talent.name" class="p-4 rounded-lg border border-yellow-300 dark:border-gray-600 bg-yellow-100 dark:bg-gray-700 shadow dark:shadow-black/30 desert-card transition-colors duration-300">
-          <h2 class="text-lg font-bold text-yellow-900 dark:text-gray-100 mb-2">{{ talent.name }}</h2>
+          <h2 class="text-sm text-yellow-900 dark:text-gray-100 mb-2">{{ talent.name }}</h2>
           <div class="text-sm text-yellow-700 dark:text-gray-300 mb-2">
             類型：<span v-if="Array.isArray(talent.type)">{{ talent.type.join('、') }}</span><span v-else>{{ talent.type }}</span>
           </div>
@@ -133,7 +133,16 @@ const filteredTalents = computed(() => {
   border-style: dashed;
   background: linear-gradient(135deg, #fef9c3 60%, #fde68a 100%);
 }
+
+.dark .desert-card {
+  background: linear-gradient(135deg, #374151 60%, #2d3748 100%);
+}
+
 body {
   background: linear-gradient(120deg, #fef9c3 0%, #fde68a 100%);
+}
+
+.dark body {
+  background: linear-gradient(120deg, #1f2937 0%, #111827 100%);
 }
 </style>
